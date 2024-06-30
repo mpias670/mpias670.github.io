@@ -353,36 +353,69 @@ RESORT_DICT = {
 
 
 CSS_SELECTORS={
-    'open_status' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span > span',
+    'open_status' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span > span',
+        'transform' : None
+    },
 
-    'proj_opening' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(1) > span',
-
-    'proj_closing' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(2) > span',
-
-    'lifts_open' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(4) > div.styles_metric__2e7Y0',
-
-    'trails_open' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
-
-    'resort_name' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span',
-
-    'runs_open' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
-
-    'beg_runs_open': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
-
-    'int_runs_open' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(3) > div.styles_metric__14Z7T',
-
-    'adv_runs_open' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(4) > div.styles_metric__14Z7T',
-    
-    'base_depth_inches' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricNumber__ZV6R3',
-
-    'base_snow_conditions' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricCaption__1MCgw',
-
-    'summit_depth_inches' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricNumber__ZV6R3',
-
-    'summit_snow_conditions' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricCaption__1MCgw',
-
-    'past_24h_snowfall_total' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(1) > article > div > table > tbody > tr:nth-child(3) > td:nth-child(5) > span',
-
-    'next_day_snowfall_total' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(2) > article > div.styles_chartWrapper__HRjrZ > table > tbody > tr:nth-child(3) > td:nth-child(1) > span'
-
+    'proj_opening' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(1) > span',
+        'transform' : None
+    },
+    'proj_closing' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(2) > span',
+        'transform' : None
+    },
+    'lifts_open' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(4) > div.styles_metric__2e7Y0',
+        'transform' : " open"
+    },
+    'trails_open' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
+        'transform' : " open"
+    },
+    'resort_name' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span',
+        'transform' : None
+    },
+    'runs_open' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
+        'transform' : None
+    },
+    'beg_runs_open' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
+        'transform' : None
+    },
+    'int_runs_open' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(3) > div.styles_metric__14Z7T',
+        'transform' : None
+    },
+    'adv_runs_open' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(4) > div.styles_metric__14Z7T',
+        'transform' : None
+    },
+    'base_depth_inches' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricNumber__ZV6R3',
+        'transform' : None
+    },
+    'base_snow_conditions' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricCaption__1MCgw',
+        'transform' : None
+    },
+    'summit_depth_inches' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricNumber__ZV6R3',
+        'transform' : None
+    },
+    'summit_snow_conditions' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricCaption__1MCgw',
+        'transform' : None
+    },
+    'past_24h_snowfall_total' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(1) > article > div > table > tbody > tr:nth-child(3) > td:nth-child(5) > span',
+        'transform' : None
+    },
+    'next_day_snowfall_total' : {
+        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(2) > article > div.styles_chartWrapper__HRjrZ > table > tbody > tr:nth-child(3) > td:nth-child(1) > span',
+        'transform' : None
+    }
 }

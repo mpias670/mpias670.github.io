@@ -32,6 +32,7 @@ def css_element_extractor(response, csscontainer):
     if response.status_code != 200:
         element = None
     else:
+        # TODO: Add handling for checking if element fits pattern (e.g. fits x/y open) - also maybe a global error handling system where a flag is raised and reported in the json indicating an unexpected element (what is it and what was expected)
         soup = BeautifulSoup(response.text, 'html.parser')
         element = soup.select_one(csscontainer)
     return element
@@ -50,12 +51,13 @@ def fetch_resort_info(resort_key, resort_dict):
     response = handler(None, RESORT_DICT[resort_key]['url'])
 
     # ONLY IF RESORT IS OPEN -> iterate through all selectors corresponding with all resort info 
-    for selector in CSS_SELECTORS:
-        element = css_element_extractor(response, CSS_SELECTORS[selector])
-        resort_dict[selector] = element.get_text(strip=True)
+    if resort_dict['open_status']:
+        for selector in CSS_SELECTORS:
+            element = css_element_extractor(response, CSS_SELECTORS[selector])
+            resort_dict[selector] = element.get_text(strip=True)
     
     # TODO 2: add handling for elements returned with non-present handling or unexpected value
-    # TODO 3: add transformations for data (e.g "7/11 open -> 7/11")
+    # TODO 3: add transformations for data (e.g "7/11 open -> 7/11") from config file 
     return resort_dict
 
 def fetch_resort_open_status(resort_key, resort_dict):
