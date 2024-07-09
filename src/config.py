@@ -77,25 +77,25 @@ RESORT_NAME_LIST = [
     "Arabba Marmolada",
     "Arapahoe Basin Ski Area",
     "Aspen Snowmass",
-    "Banff Sunshine",
+    "Banff Sunshine Village",
     "Bear Mountain",
-    "Big Sky",
-    "Blue Mountain",
-    "Blue Mountain Resort",
+    "Big Sky Resort",
+    "Blue Mountain Resort - Ontario",
+    "Blue Mountain Ski Area - PA",
     "Boyne Mountain Resort",
     "Brighton Resort",
     "Camelback Mountain Resort",
-    "Carezza Ski",
-    "Chamonix",
+    "Carezza - Karersee",
+    "Chamonix Mont-Blanc",
     "Comprensorio Ski Civetta",
-    "Copper Mountain",
+    "Copper Mountain Resort",
     "Cortina d'Ampezzo",
     "Crystal Mountain",
     "Cypress Mountain",
     "Deer Valley Resort",
     "Eldora Mountain Resort",
     "Engadin St. Moritz",
-    "Gitschberg/Maranza - Jochtal/Valles",
+    "Gitschberg Jochtal - Maranza Valles",
     "Grandvalira",
     "Jackson Hole",
     "June Mountain",
@@ -103,7 +103,7 @@ RESORT_NAME_LIST = [
     "Kitzbühel",
     "Lake Louise",
     "Loon Mountain",
-    "Mammoth Mountain",
+    "Mammoth Mountain Ski Area",
     "Moena-Alpe Lusia-Bellamonte",
     "Mt. Bachelor",
     "Mt. Norquay",
@@ -112,7 +112,7 @@ RESORT_NAME_LIST = [
     "Panorama Mountain",
     "Pico Mountain",
     "Plan de Corones / Kronplatz",
-    "Red Mountain",
+    "RED Mountain Resort",
     "Revelstoke",
     "San Martino di Castrozza - Passo Rolle",
     "Schweitzer",
@@ -121,6 +121,10 @@ RESORT_NAME_LIST = [
 ]
 
 RESORT_DICT = {
+    "3 Peaks Dolomites": {
+        "Name": "3 Peaks Dolomites",
+        "url": "https://www.onthesnow.co.uk/suedtirol/alta-pusteria-hochpustertal/skireport"
+    },
     "Camelback Mountain Resort": {
         "Name": "Camelback Mountain Resort",
         "url": "https://www.onthesnow.com/pennsylvania/camelback-mountain-resort/skireport"
@@ -152,10 +156,6 @@ RESORT_DICT = {
     "Zermatt": {
         "Name": "Zermatt",
         "url": "https://www.onthesnow.co.uk/valais/zermatt/skireport"
-    },
-    "Alta Pusteria - Hochpustertal": {
-        "Name": "Alta Pusteria - Hochpustertal",
-        "url": "https://www.onthesnow.co.uk/suedtirol/alta-pusteria-hochpustertal/skireport"
     },
     "Alpe di Siusi / Seiser Alm": {
         "Name": "Alpe di Siusi / Seiser Alm",
@@ -189,7 +189,7 @@ RESORT_DICT = {
         "Name": "Aspen Snowmass",
         "url": "https://www.onthesnow.com/colorado/aspen-snowmass/skireport"
     },
-    "Sunshine Village": {
+    "Banff Sunshine Village": {
         "Name": "Sunshine Village",
         "url": "https://www.onthesnow.com/alberta/sunshine-village/skireport"
     },
@@ -201,12 +201,12 @@ RESORT_DICT = {
         "Name": "Big Sky Resort",
         "url": "https://www.onthesnow.com/montana/big-sky-resort/skireport"
     },
-    "Blue Mountain": {
-        "Name": "Blue Mountain",
+    "Blue Mountain Resort - Ontario": {
+        "Name": "Blue Mountain Resort - Ontario",
         "url": "https://www.onthesnow.com/ontario/blue-mountain/skireport"
     },
-    "Blue Mountain Ski Area": {
-        "Name": "Blue Mountain Ski Area",
+    "Blue Mountain Ski Area - PA": {
+        "Name": "Blue Mountain Ski Area - PA",
         "url": "https://www.onthesnow.com/pennsylvania/blue-mountain-ski-area/skireport"
     },
     "Boyne Mountain Resort": {
@@ -253,8 +253,8 @@ RESORT_DICT = {
         "Name": "Eldora Mountain Resort",
         "url": "https://www.onthesnow.com/colorado/eldora-mountain-resort/skireport"
     },
-    "St. Moritz": {
-        "Name": "St. Moritz",
+    "Engadin St. Moritz": {
+        "Name": "Engadin St. Moritz",
         "url": "https://www.onthesnow.co.uk/graubunden/st-moritz/skireport"
     },
     "Gitschberg Jochtal - Maranza Valles": {
@@ -301,40 +301,40 @@ RESORT_DICT = {
         "Name": "Mt. Bachelor",
         "url": "https://www.onthesnow.com/oregon/mt-bachelor/skireport"
     },
-    "Ski Banff @ Norquay": {
-        "Name": "Ski Banff @ Norquay",
+    "Mt. Norquay": {
+        "Name": "Mt. Norquay",
         "url": "https://www.onthesnow.com/alberta/ski-banff-norquay/skireport"
     },
-    "Pampeago - Predazzo - Obereggen": {
-        "Name": "Pampeago - Predazzo - Obereggen",
+    "Obereggen - Pampeago - Predazzo": {
+        "Name": "Obereggen - Pampeago - Predazzo",
         "url": "https://www.onthesnow.co.uk/trentino/pampeago-predazzo-obereggen/skireport"
     },
-    "Squaw Valley USA": {
-        "Name": "Squaw Valley USA",
+    "Palisades Tahoe": {
+        "Name": "Palisades Tahoe",
         "url": "https://www.onthesnow.com/california/squaw-valley-usa/skireport"
     },
     "Panorama Mountain": {
         "Name": "Panorama Mountain",
         "url": "https://www.onthesnow.com/british-columbia/panorama-mountain/skireport"
     },
-    "Pico Mountain at Killington": {
-        "Name": "Pico Mountain at Killington",
+    "Pico Mountain": {
+        "Name": "Pico Mountain",
         "url": "https://www.onthesnow.com/vermont/pico-mountain-at-killington/skireport"
     },
     "Plan de Corones / Kronplatz": {
         "Name": "Plan de Corones / Kronplatz",
         "url": "https://www.onthesnow.co.uk/suedtirol/plan-de-corones-kronplatz/skireport"
     },
-    "Red Resort": {
-        "Name": "Red Resort",
+    "RED Mountain Resort": {
+        "Name": "RED Mountain Resort",
         "url": "https://www.onthesnow.com/british-columbia/red-resort/skireport"
     },
-    "Revelstoke Mountain": {
-        "Name": "Revelstoke Mountain",
+    "Revelstoke": {
+        "Name": "Revelstoke",
         "url": "https://www.onthesnow.com/british-columbia/revelstoke-mountain/skireport"
     },
-    "San Martino di Castrozza / Passo Rolle": {
-        "Name": "San Martino di Castrozza / Passo Rolle",
+    "San Martino di Castrozza - Passo Rolle": {
+        "Name": "San Martino di Castrozza - Passo Rolle",
         "url": "https://www.onthesnow.co.uk/trentino/san-martino-di-castrozza-passo-rolle/skireport"
     },
     "Schweitzer": {
@@ -351,71 +351,85 @@ RESORT_DICT = {
     }
 }
 
-
-CSS_SELECTORS={
-    'open_status' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span > span',
-        'transform' : None
+CSS_SELECTORS = {
+    'open_status': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span > span',
+        'pattern': '^(Open|Closed)$', #e.g. Open or Closed
+        'transform': None
     },
-
-    'proj_opening' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(1) > span',
-        'transform' : None
+    'proj_opening': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(1) > span',
+        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}$.', #e.g. Nov 11
+        'transform': None
     },
-    'proj_closing' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(2) > span',
-        'transform' : None
+    'proj_closing': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(2) > span',
+        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}$.', #e.g. Nov 11
+        'transform': None
     },
-    'lifts_open' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(4) > div.styles_metric__2e7Y0',
-        'transform' : " open"
+    'lifts_open': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(4) > div.styles_metric__2e7Y0',
+        'pattern': '^\d+/\d+ open$', #e.g. 5/11 open
+        'transform': '^(\d+/\d+) open$' #removes the 'open' part
     },
-    'trails_open' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
-        'transform' : " open"
+    'trails_open': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
+        'pattern': '^\d+/\d+ open$', #e.g. 5/11 open
+        'transform': '^(\d+/\d+) open$' #removes the 'open' part
     },
-    'resort_name' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span',
-        'transform' : None
+    'resort_name': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span',
+        'pattern': None, #no pattern to check because resorts can have hypens and such
+        'transform': None
     },
-    'runs_open' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
-        'transform' : None
+    'runs_perc_open': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(5) > div.styles_metric__14Z7T',
+        'pattern': '^\d+%$', #e.g. 100%
+        'transform': None
     },
-    'beg_runs_open' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
-        'transform' : None
+    'beg_runs_open': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
+        'pattern': '^\d+/\d+', # e.g. 4/11
+        'transform': None
     },
-    'int_runs_open' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(3) > div.styles_metric__14Z7T',
-        'transform' : None
+    'int_runs_open': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(3) > div.styles_metric__14Z7T',
+        'pattern': '^\d+/\d+', # e.g. 4/11
+        'transform': None
     },
-    'adv_runs_open' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(4) > div.styles_metric__14Z7T',
-        'transform' : None
+    'adv_runs_open': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(4) > div.styles_metric__14Z7T',
+        'pattern': '^\d+/\d+', # e.g. 4/11
+        'transform': None
     },
-    'base_depth_inches' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricNumber__ZV6R3',
-        'transform' : None
+    'base_depth_inches': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricNumber__ZV6R3',
+        'pattern': '^\d+"$', # e.g. 5"
+        'transform': None #'^(\d+) inches$'
     },
-    'base_snow_conditions' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricCaption__1MCgw',
-        'transform' : None
+    'base_snow_conditions': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricCaption__1MCgw',
+        'pattern': None, #can be any word with spaces or hyphens or N/A #'^([A-Za-z]+|N/A)$', 
+        'transform': None
     },
-    'summit_depth_inches' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricNumber__ZV6R3',
-        'transform' : None
+    'summit_depth_inches': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricNumber__ZV6R3',
+        'pattern': '^\d+"$',
+        'transform': None #'^(\d+) inches$'
     },
-    'summit_snow_conditions' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricCaption__1MCgw',
-        'transform' : None
+    'summit_snow_conditions': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricCaption__1MCgw',
+        'pattern': None, #can be any word with spaces or hyphens or N/A
+        'transform': None
     },
-    'past_24h_snowfall_total' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(1) > article > div > table > tbody > tr:nth-child(3) > td:nth-child(5) > span',
-        'transform' : None
+    'past_24h_snowfall_total': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(1) > article > div > table > tbody > tr:nth-child(3) > td:nth-child(5) > span',
+        'pattern': '^\d+"$', # e.g. 5"
+        'transform': None 
     },
-    'next_day_snowfall_total' : {
-        'selector' : '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(2) > article > div.styles_chartWrapper__HRjrZ > table > tbody > tr:nth-child(3) > td:nth-child(1) > span',
-        'transform' : None
+    'next_day_snowfall_total': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(2) > article > div.styles_chartWrapper__HRjrZ > table > tbody > tr:nth-child(3) > td:nth-child(1) > span',
+        'pattern': '^\d+"$', # e.g. 5"
+        'transform': None 
     }
 }
