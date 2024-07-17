@@ -21,7 +21,7 @@ def handle_error(resort_key, error_type, message, resort_dict):
     })
     print(f"Error in {resort_key}: {message}")
 
-def handler(request, url):
+def request_handler(request, url):
     """_summary_
 
     Args:
@@ -31,7 +31,7 @@ def handler(request, url):
     Returns:
         _type_: _description_
     """
-    response = requests.get(url, verify=False)
+    response = requests.get(url, verify=r"C:\Users\Matt\Projects\snow_api\src\consolidate.pem")
     if response.status_code != 200:
         return None
     return response
@@ -93,7 +93,7 @@ def fetch_resort_info(resort_key, resort_dict):
     Returns:
         dict: The updated resort dictionary with extracted information.
     """
-    response = handler(None, RESORT_DICT[resort_key]['url'])
+    response = request_handler(None, RESORT_DICT[resort_key]['url'])
 
     if resort_dict['open_status']:
         #fetch all of the info 
@@ -113,7 +113,7 @@ def fetch_resort_open_status(resort_key, resort_dict):
     Returns:
         tuple: The open status and the updated resort dictionary.
     """
-    response = handler(None, RESORT_DICT[resort_key]['url'])
+    response = request_handler(None, RESORT_DICT[resort_key]['url'])
     #if open, returns True. Otherwise, False
     open_status = css_element_extractor(response, CSS_SELECTORS['open_status']['selector'], resort_key, resort_dict)
     open_status = (open_status == "Open")
