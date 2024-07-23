@@ -359,12 +359,12 @@ CSS_SELECTORS = {
     },
     'proj_opening': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(1) > span',
-        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}$.', #e.g. Nov 11
+        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}', #e.g. Nov 11
         'transform': None
     },
     'proj_closing': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(2) > span',
-        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}$.', #e.g. Nov 11
+        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}', #e.g. Nov 11
         'transform': None
     },
     'lifts_open': {

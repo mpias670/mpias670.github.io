@@ -17,3 +17,4 @@ def test_create_resort_dict(resort_dict):
 #execution
 #test_resort_open(resort_dict)
 resort_dict = test_create_resort_dict(resort_dict)
+print('done')

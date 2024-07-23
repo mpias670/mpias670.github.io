@@ -48,7 +48,7 @@ def validate_element(element_text, pattern):
     """
     return re.match(pattern, element_text) is not None
 
-def css_element_extractor(response, csscontainer, resort_key, resort_dict, expected_pattern=None):
+def css_element_extractor(response, selector, csscontainer, resort_key, resort_dict, expected_pattern=None):
     """Given a CSS Element containment, extracts the element from the provided response.
 
     Args:
@@ -72,7 +72,7 @@ def css_element_extractor(response, csscontainer, resort_key, resort_dict, expec
     
     #handles the case where element is not present (maybe bc of page change?)
     if element is None:
-        handle_error(resort_key, "CSS Selector Error", f"Element with selector '{csscontainer}' not found", resort_dict)
+        handle_error(resort_key, "CSS Selector Error", f"Element with selector name '{selector}' & container '{csscontainer}' not found", resort_dict)
         return "No Data"
     
     element_text = element.get_text(strip=True)
@@ -95,11 +95,11 @@ def fetch_resort_info(resort_key, resort_dict):
     """
     response = request_handler(None, RESORT_DICT[resort_key]['url'])
 
-    if resort_dict['open_status']:
+    if resort_dict[resort_key]['open_status']:
         #fetch all of the info 
         for selector in CSS_SELECTORS:
             pattern = CSS_SELECTORS[selector].get('pattern', None)  # Fetch the expected pattern from CSS_SELECTORS
-            element = css_element_extractor(response, CSS_SELECTORS[selector]['selector'], resort_key, resort_dict, expected_pattern=pattern)
+            element = css_element_extractor(response, selector, CSS_SELECTORS[selector]['selector'], resort_key, resort_dict, expected_pattern=pattern)
             resort_dict[resort_key][selector] = element
 
     return resort_dict
@@ -115,7 +115,7 @@ def fetch_resort_open_status(resort_key, resort_dict):
     """
     response = request_handler(None, RESORT_DICT[resort_key]['url'])
     #if open, returns True. Otherwise, False
-    open_status = css_element_extractor(response, CSS_SELECTORS['open_status']['selector'], resort_key, resort_dict)
+    open_status = css_element_extractor(response, 'open_status', CSS_SELECTORS['open_status']['selector'], resort_key, resort_dict)
     open_status = (open_status == "Open")
     resort_dict[resort_key]['open_status'] = open_status
 
