@@ -31,10 +31,34 @@ def request_handler(request, url):
     Returns:
         _type_: _description_
     """
-    response = requests.get(url, verify=r"C:\Users\Matt\Projects\snow_api\src\consolidate.pem")
+    try: #try the primary us cert chain
+        response = requests.get(url, verify=r"C:\Users\320256831\Documents\Proj\snow_api\src\consolidate.pem")
+
+
+    except: 
+        try: #try the uk primary cert chain
+            response = requests.get(url, verify=r"C:\Users\320256831\Documents\Proj\snow_api\src\consolidateuk.pem")
+            
+        except: 
+            try: #try the uk secondary cert chain
+                response = requests.get(url, verify=r"C:\Users\320256831\Documents\Proj\snow_api\src\consolidateuk2.pem")
+
+            except:
+                response = requests.get(url, verify= False)
+                cert_used = "None"
+            else:
+                cert_used = "secondary UK chain"
+
+
+        else:
+            cert_used = "primary UK chain"
+
+    else:
+        cert_used = "Normal"
+
     if response.status_code != 200:
         return None
-    return response
+    return response, cert_used
 
 def validate_element(element_text, pattern):
     """Validates the element text against a given pattern.
@@ -48,7 +72,7 @@ def validate_element(element_text, pattern):
     """
     return re.match(pattern, element_text) is not None
 
-def css_element_extractor(response, selector, csscontainer, resort_key, resort_dict, expected_pattern=None):
+def css_element_extractor(response, csscontainer, resort_key, resort_dict, expected_pattern=None):
     """Given a CSS Element containment, extracts the element from the provided response.
 
     Args:
@@ -72,7 +96,7 @@ def css_element_extractor(response, selector, csscontainer, resort_key, resort_d
     
     #handles the case where element is not present (maybe bc of page change?)
     if element is None:
-        handle_error(resort_key, "CSS Selector Error", f"Element with selector name '{selector}' & container '{csscontainer}' not found", resort_dict)
+        handle_error(resort_key, "CSS Selector Error", f"Element with selector '{csscontainer}' not found", resort_dict)
         return "No Data"
     
     element_text = element.get_text(strip=True)
@@ -93,13 +117,13 @@ def fetch_resort_info(resort_key, resort_dict):
     Returns:
         dict: The updated resort dictionary with extracted information.
     """
-    response = request_handler(None, RESORT_DICT[resort_key]['url'])
+    response,cert_used = request_handler(None, RESORT_DICT[resort_key]['url'])
 
     if resort_dict[resort_key]['open_status']:
         #fetch all of the info 
         for selector in CSS_SELECTORS:
             pattern = CSS_SELECTORS[selector].get('pattern', None)  # Fetch the expected pattern from CSS_SELECTORS
-            element = css_element_extractor(response, selector, CSS_SELECTORS[selector]['selector'], resort_key, resort_dict, expected_pattern=pattern)
+            element = css_element_extractor(response, CSS_SELECTORS[selector]['selector'], resort_key, resort_dict, expected_pattern=pattern)
             resort_dict[resort_key][selector] = element
 
     return resort_dict
@@ -113,13 +137,33 @@ def fetch_resort_open_status(resort_key, resort_dict):
     Returns:
         tuple: The open status and the updated resort dictionary.
     """
-    response = request_handler(None, RESORT_DICT[resort_key]['url'])
+    response,cert_used = request_handler(None, RESORT_DICT[resort_key]['url'])
     #if open, returns True. Otherwise, False
-    open_status = css_element_extractor(response, 'open_status', CSS_SELECTORS['open_status']['selector'], resort_key, resort_dict)
+    open_status = css_element_extractor(response, CSS_SELECTORS['open_status']['selector'], resort_key, resort_dict)
     open_status = (open_status == "Open")
     resort_dict[resort_key]['open_status'] = open_status
 
     return open_status, resort_dict
+
+def dynamic_extractor(soup, identifier_text, tag='div'):
+    """
+    Dynamically extracts an element based on the text of a nearby identifier.
+    
+    Args:
+        soup (BeautifulSoup): Parsed HTML content.
+        identifier_text (str): The text that identifies the element of interest.
+        tag (str): The HTML tag of the element containing the identifier text.
+    
+    Returns:
+        str: The text content of the identified element.
+    """
+    identifier = soup.find(tag, text=identifier_text)
+    if identifier:
+        # Assuming the desired element is a sibling or in the same parent container
+        target = identifier.find_next_sibling()
+        if target:
+            return target.get_text(strip=True)
+    return None
 
 def create_resort_dict(resort_dict):
 
