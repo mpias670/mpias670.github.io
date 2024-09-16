@@ -44,8 +44,9 @@ def request_handler(request, url):
                 response = requests.get(url, verify=r"C:\Users\320256831\Documents\Proj\snow_api\src\consolidateuk2.pem")
 
             except:
-                response = requests.get(url, verify= False)
-                cert_used = "None"
+                response = requests.get(url)
+                cert_used = response
+                print('last case')
             else:
                 cert_used = "secondary UK chain"
 
@@ -145,24 +146,25 @@ def fetch_resort_open_status(resort_key, resort_dict):
 
     return open_status, resort_dict
 
-def dynamic_extractor(soup, identifier_text, tag='div'):
+def dynamic_extractor(soup, search_identifier_text, search_tag='div', sibling_tag='span', sibling_direction='next'):
     """
     Dynamically extracts an element based on the text of a nearby identifier.
     
     Args:
         soup (BeautifulSoup): Parsed HTML content.
-        identifier_text (str): The text that identifies the element of interest.
-        tag (str): The HTML tag of the element containing the identifier text.
+        search_identifier_text (str): The text that identifies the .
+        search_tag (str): The HTML tag of the element containing the identifier text.
+        sibling_tag (str): The HTML tag of the element that y
     
     Returns:
         str: The text content of the identified element.
     """
-    identifier = soup.find(tag, text=identifier_text)
+    identifier = soup.find(search_tag, text=search_identifier_text)
     if identifier:
         # Assuming the desired element is a sibling or in the same parent container
-        target = identifier.find_next_sibling()
+        target = identifier.find_next(sibling_tag).text
         if target:
-            return target.get_text(strip=True)
+            return target
     return None
 
 def create_resort_dict(resort_dict):

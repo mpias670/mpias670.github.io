@@ -42,8 +42,9 @@ def test_cert_usage(resort_dict):
 def test_dynamic_scrape(resort_dict):
     for resort in resort_dict:
         response,cert_used = scraper.request_handler(None, resort_dict[resort]['url'])
+        print(str(cert_used.ok) + '&&' + cert_used.reason)
         soup = BeautifulSoup(response.text, 'html.parser')
-        ab = scraper.dynamic_extractor(soup, identifier_text="Projected Opening", tag='div')
+        ab = scraper.dynamic_extractor(soup, search_identifier_text="Projected Opening", search_tag='div')
 
 #execution
 #test_resort_open(resort_dict)
