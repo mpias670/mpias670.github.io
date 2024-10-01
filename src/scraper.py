@@ -154,7 +154,7 @@ def dynamic_extractor(soup, search_identifier_text, search_tag='div', sibling_ta
         soup (BeautifulSoup): Parsed HTML content.
         search_identifier_text (str): The text that identifies the .
         search_tag (str): The HTML tag of the element containing the identifier text.
-        sibling_tag (str): The HTML tag of the element that y
+        sibling_tag (str): The HTML tag of the element that contains the desired info
     
     Returns:
         str: The text content of the identified element.
