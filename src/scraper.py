@@ -62,7 +62,7 @@ def request_handler(request, url):
     return response, cert_used
 
 def validate_element(element_text, pattern):
-    """Validates the element text against a given pattern.
+    """Validates the element text against a given pattern. Makes sure the extracted element is what you expect
 
     Args:
         element_text (str): The text of the extracted element.
@@ -108,7 +108,41 @@ def css_element_extractor(response, csscontainer, resort_key, resort_dict, expec
         return "No Data"
     
     return element_text
-
+def dynamic_extractor(response, search_identifier_text, resort_key, resort_dict, search_tag='div', sibling_tag='span', sibling_direction='next',expected_pattern = None):
+    """
+    Dynamically extracts an element based on the text of a nearby identifier.
+    
+    Args:
+        response (<Response> from Requests): HTTP response returned by requests.get()
+        search_identifier_text (str): The text that identifies the element you're searching with (e.g. a table title).
+        search_tag (str): The HTML tag of the element containing the identifier text.
+        sibling_tag (str): The HTML tag of the element that contains the desired info
+    
+    Returns:
+        str: The text content of the identified element.
+    """
+        # handles the case where input HTTP response is empty 
+    if response is None or response.status_code != 200:
+        handle_error(resort_key, "HTTP Error", "Failed to fetch the webpage", resort_dict)
+        return "No Data"
+    
+    #extract element from input HTTP reponse
+    soup = BeautifulSoup(response.text, 'html.parser')
+    identifier = soup.find(search_tag, text=search_identifier_text)
+    if identifier:
+        # Assuming the desired element is a sibling or in the same parent container
+        if sibling_direction == 'next':
+            target = identifier.find_next(sibling_tag).text
+        elif sibling_direction == 'previous':
+            target = identifier.find_previous(sibling_tag).text
+            #handles the case where element does not match it's pattern
+            
+    if expected_pattern and not validate_element(target, expected_pattern):
+        handle_error(resort_key, "Pattern Mismatch Error", f"Element '{target}' does not match expected pattern '{expected_pattern}'", resort_dict)
+        return "No Data"
+        if target:
+            return target
+    return None
 def fetch_resort_info(resort_key, resort_dict):
     """For a given resort name (from RESORT_DICT.keys), extract all info from the resort skireport page.
 
@@ -124,11 +158,16 @@ def fetch_resort_info(resort_key, resort_dict):
         #fetch all of the info 
         for selector in CSS_SELECTORS:
             pattern = CSS_SELECTORS[selector].get('pattern', None)  # Fetch the expected pattern from CSS_SELECTORS
-            element = css_element_extractor(response, CSS_SELECTORS[selector]['selector'], resort_key, resort_dict, expected_pattern=pattern)
+            if selector['selection_method'] == 'static':
+                element = css_element_extractor(response, CSS_SELECTORS[selector]['selector'], 
+                                                resort_key, resort_dict, expected_pattern=pattern)
+            elif selector['selection_method'] == 'dynamic':
+                element = dynamic_extractor(response, selector['identifier_text'], resort_key, 
+                                            resort_dict, selector['search_tag'],selector['sibling_tag'], selector['direction'])
+            
             resort_dict[resort_key][selector] = element
 
     return resort_dict
-
 def fetch_resort_open_status(resort_key, resort_dict):
     """Fetches the open status of the resort.
 
@@ -146,26 +185,6 @@ def fetch_resort_open_status(resort_key, resort_dict):
 
     return open_status, resort_dict
 
-def dynamic_extractor(soup, search_identifier_text, search_tag='div', sibling_tag='span', sibling_direction='next'):
-    """
-    Dynamically extracts an element based on the text of a nearby identifier.
-    
-    Args:
-        soup (BeautifulSoup): Parsed HTML content.
-        search_identifier_text (str): The text that identifies the .
-        search_tag (str): The HTML tag of the element containing the identifier text.
-        sibling_tag (str): The HTML tag of the element that contains the desired info
-    
-    Returns:
-        str: The text content of the identified element.
-    """
-    identifier = soup.find(search_tag, text=search_identifier_text)
-    if identifier:
-        # Assuming the desired element is a sibling or in the same parent container
-        target = identifier.find_next(sibling_tag).text
-        if target:
-            return target
-    return None
 
 def create_resort_dict(resort_dict):
 
