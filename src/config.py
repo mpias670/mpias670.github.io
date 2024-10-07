@@ -354,146 +354,178 @@ RESORT_DICT = {
 CSS_SELECTORS = {
     'open_status': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span > span',
-        'pattern': '^(Open|Closed)$', #e.g. Open or Closed
+        'pattern': '^(Open|Closed)$',
         'transform': None,
+        'selection_method': 'static',
         'identifier_text': 'open_status',
         'search_tag': 'span',
         'sibling_tag': '',
-        'direction': 'next'
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'proj_opening': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(1) > span',
-        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}', #e.g. Nov 11
+        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{1,2}',
         'transform': None,
+        'selection_method': 'static',
         'identifier_text': 'proj_opening',
-        'search_tag': 'span',
+        'search_tag': '',
         'sibling_tag': '',
-        'direction': 'next'
+        'direction': '',
+        'deg_of_sep': 1
     },
     'proj_closing': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > article:nth-child(5) > div.styles_box__1sXJN > div.styles_opening__1OhGi > div:nth-child(2) > span',
-        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}', #e.g. Nov 11
+        'pattern': '^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{1,2}',
         'transform': None,
+        'selection_method': 'static',
         'identifier_text': 'proj_closing',
-        'search_tag': 'span',
+        'search_tag': '',
         'sibling_tag': '',
-        'direction': 'next'
+        'direction': '',
+        'deg_of_sep': 1
     },
     'lifts_open': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(4) > div.styles_metric__2e7Y0',
-        'pattern': '^\d+/\d+ open$', #e.g. 5/11 open
-        'transform': '^(\d+/\d+) open$', #removes the 'open' part
-        'identifier_text': 'lifts_open',
+        'pattern': '^\\d+/\\d+ open$',
+        'transform': '^(\\d+/\\d+) open$',
+        'selection_method': 'dynamic',
+        'identifier_text': 'Lifts Open',
         'search_tag': 'div',
-        'sibling_tag': '',
-        'direction': 'next'
+        'sibling_tag': 'div',
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'trails_open': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
-        'pattern': '^\d+/\d+ open$', #e.g. 5/11 open
-        'transform': '^(\d+/\d+) open$', #removes the 'open' part
-        'identifier_text': 'trails_open',
+        'pattern': '^\\d+/\\d+ open$',
+        'transform': '^(\\d+/\\d+) open$',
+        'selection_method': 'dynamic',
+        'identifier_text': 'Runs Open',
         'search_tag': 'div',
-        'sibling_tag': '',
-        'direction': 'next'
+        'sibling_tag': 'div',
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'resort_name': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_box__1QWMF > span',
-        'pattern': None, #no pattern to check because resorts can have hypens and such
+        'pattern': None,
         'transform': None,
-        'identifier_text': 'resort_name',
-        'search_tag': 'span',
+        'selection_method': 'static',
+        'identifier_text': '',
+        'search_tag': '',
         'sibling_tag': '',
-        'direction': 'next'
-    },
-    'runs_perc_open': {
-        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(5) > div.styles_metric__14Z7T',
-        'pattern': '^\d+%$', #e.g. 100%
-        'transform': None,
-        'identifier_text': 'runs_perc_open',
-        'search_tag': 'div',
-        'sibling_tag': '',
-        'direction': 'next'
+        'direction': '',
+        'deg_of_sep': 1
     },
     'beg_runs_open': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > section:nth-child(5) > div.styles_metric__2e7Y0',
-        'pattern': '^\d+/\d+', # e.g. 4/11
+        'pattern': '^\\d+/\\d+',
         'transform': None,
-        'identifier_text': 'beg_runs_open',
+        'selection_method': 'dynamic',
+        'identifier_text': 'Beginner Runs Open',
         'search_tag': 'div',
-        'sibling_tag': '',
-        'direction': 'next'
+        'sibling_tag': 'div',
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'int_runs_open': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(3) > div.styles_metric__14Z7T',
-        'pattern': '^\d+/\d+', # e.g. 4/11
+        'pattern': '^\\d+/\\d+',
         'transform': None,
-        'identifier_text': 'int_runs_open',
+        'selection_method': 'dynamic',
+        'identifier_text': 'Intermediate Runs Open',
         'search_tag': 'div',
-        'sibling_tag': '',
-        'direction': 'next'
+        'sibling_tag': 'div',
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'adv_runs_open': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(4) > div.styles_metric__14Z7T',
-        'pattern': '^\d+/\d+', # e.g. 4/11
+        'pattern': '^\\d+/\\d+',
         'transform': None,
-        'identifier_text': 'adv_runs_open',
+        'selection_method': 'dynamic',
+        'identifier_text': 'Advanced Runs Open',
         'search_tag': 'div',
-        'sibling_tag': '',
-        'direction': 'next'
+        'sibling_tag': 'div',
+        'direction': 'next',
+        'deg_of_sep': 1
+    },
+    'exp_runs_open': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_items__2pmeH > div:nth-child(4) > div.styles_metric__14Z7T',
+        'pattern': '^\\d+/\\d+',
+        'transform': None,
+        'selection_method': 'dynamic',
+        'identifier_text': 'Expert Runs Open',
+        'search_tag': 'div',
+        'sibling_tag': 'div',
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'base_depth_inches': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricNumber__ZV6R3',
-        'pattern': '^\d+"$', # e.g. 5"
-        'transform': None, #'^(\d+) inches$'
-        'identifier_text': 'base_depth_inches',
+        'pattern': '^\\d+"$',
+        'transform': None,
+        'selection_method': 'dynamic',
+        'identifier_text': 'Base',
         'search_tag': 'div',
-        'sibling_tag': '',
-        'direction': 'next'
+        'sibling_tag': 'div',
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'base_snow_conditions': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(1) > article > div.styles_metricCaption__1MCgw',
-        'pattern': None, #can be any word with spaces or hyphens or N/A #'^([A-Za-z]+|N/A)$', 
+        'pattern': None,
         'transform': None,
+        'selection_method': 'dynamic',
         'identifier_text': 'base_snow_conditions',
         'search_tag': 'div',
         'sibling_tag': '',
-        'direction': 'next'
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'summit_depth_inches': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricNumber__ZV6R3',
-        'pattern': '^\d+"$',
-        'transform': None, #'^(\d+) inches$'
+        'pattern': '^\\d+"$',
+        'transform': None,
+        'selection_method': 'dynamic',
         'identifier_text': 'summit_depth_inches',
         'search_tag': 'div',
         'sibling_tag': '',
-        'direction': 'next'
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'summit_snow_conditions': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricCaption__1MCgw',
-        'pattern': None, #can be any word with spaces or hyphens or N/A
+        'pattern': None,
         'transform': None,
+        'selection_method': 'dynamic',
         'identifier_text': 'summit_snow_conditions',
         'search_tag': 'div',
         'sibling_tag': '',
-        'direction': 'next'
+        'direction': 'next',
+        'deg_of_sep': 1
     },
     'past_24h_snowfall_total': {
-        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(1) > article > div > table > tbody > tr:nth-child(3) > td:nth-child(5) > span',
-        'pattern': '^\d+"$', # e.g. 5"
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(3) > article > div.styles_metricNumber__ZV6R3',
+        'pattern': '^\\d+"$',
         'transform': None,
+        'selection_method': 'dynamic',
         'identifier_text': 'past_24h_snowfall_total',
-        'search_tag': 'span',
+        'search_tag': 'div',
         'sibling_tag': '',
-        'direction': 'next'
+        'direction': 'next',
+        'deg_of_sep': 1
     },
-    'next_day_snowfall_total': {
-        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.skireport_innerLayout__152xG > div:nth-child(2) > article > div.styles_chartWrapper__HRjrZ > table > tbody > tr:nth-child(3) > td:nth-child(1) > span',
-        'pattern': '^\d+"$', # e.g. 5"
+    'past_48h_snowfall_total': {
+        'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(4) > article > div.styles_metricNumber__ZV6R3',
+        'pattern': '^\\d+"$',
         'transform': None,
-        'identifier_text': 'next_day_snowfall_total',
-        'search_tag': 'span',
+        'selection_method': 'dynamic',
+        'identifier_text': 'past_48h_snowfall_total',
+        'search_tag': 'div',
         'sibling_tag': '',
-        'direction': 'next'
+        'direction': 'next',
+        'deg_of_sep': 1
     }
 }

@@ -108,18 +108,21 @@ def css_element_extractor(response, csscontainer, resort_key, resort_dict, expec
         return "No Data"
     
     return element_text
-def dynamic_extractor(response, search_identifier_text, resort_key, resort_dict, search_tag='div', sibling_tag='span', sibling_direction='next',expected_pattern = None):
+def dynamic_extractor(resort_key, resort_dict, response, search_identifier_text, search_tag='div', sibling_tag='span', sibling_direction='next', deg_of_sep = 1, expected_pattern = None):
     """
     Dynamically extracts an element based on the text of a nearby identifier.
     
     Args:
+        resort_key (str): The key of the resort in the dictionary.
+        resort_dict (dict): The dictionary to update with element information.
         response (<Response> from Requests): HTTP response returned by requests.get()
         search_identifier_text (str): The text that identifies the element you're searching with (e.g. a table title).
         search_tag (str): The HTML tag of the element containing the identifier text.
         sibling_tag (str): The HTML tag of the element that contains the desired info
-    
+        sibling_direction (str): Either next or prev - the direction to search from the search_tag
+        deg_of_sep (int): number of tags away the desired info is contained in
     Returns:
-        str: The text content of the identified element.
+        (str | None): The text content of the identified element or none if not found
     """
         # handles the case where input HTTP response is empty 
     if response is None or response.status_code != 200:
@@ -129,20 +132,38 @@ def dynamic_extractor(response, search_identifier_text, resort_key, resort_dict,
     #extract element from input HTTP reponse
     soup = BeautifulSoup(response.text, 'html.parser')
     identifier = soup.find(search_tag, text=search_identifier_text)
+
     if identifier:
-        # Assuming the desired element is a sibling or in the same parent container
-        if sibling_direction == 'next':
-            target = identifier.find_next(sibling_tag).text
-        elif sibling_direction == 'previous':
-            target = identifier.find_previous(sibling_tag).text
-            #handles the case where element does not match it's pattern
+        target = None #initialize target
+        current_element = identifier # intialize current_element for for loop
+
+        #Traverse through siblings depending on the direction and degree of separation
+        for _ in range(deg_of_sep):
+            if sibling_direction == 'next':
+                current_element = current_element.find_next(sibling_tag).text
+            elif sibling_direction == 'previous':
+                current_element = current_element.find_previous(sibling_tag).text
+                
+
+            # If we reach the end of the siblings without finding the target
+            if not current_element:
+                handle_error(resort_key, "Traversal Error", "Failed to find the element after degree of separation", resort_dict)
+                return "No Data"
             
-    if expected_pattern and not validate_element(target, expected_pattern):
-        handle_error(resort_key, "Pattern Mismatch Error", f"Element '{target}' does not match expected pattern '{expected_pattern}'", resort_dict)
-        return "No Data"
+         # Extract the text from the located element
+        target = current_element.text if current_element else None
+
+        #handles the case where element does not match it's pattern
+        if expected_pattern and not validate_element(target, expected_pattern):
+            handle_error(resort_key, "Pattern Mismatch Error", f"Element '{target}' does not match expected pattern '{expected_pattern}'", resort_dict)
+            return "No Data"
         if target:
             return target
+        
+    # Return None if the identifier is not found
+    handle_error(resort_key, "Identifier Not Found", f"Could not find the element with text '{search_identifier_text}'", resort_dict)
     return None
+
 def fetch_resort_info(resort_key, resort_dict):
     """For a given resort name (from RESORT_DICT.keys), extract all info from the resort skireport page.
 
