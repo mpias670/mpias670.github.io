@@ -108,61 +108,128 @@ def css_element_extractor(response, csscontainer, resort_key, resort_dict, expec
         return "No Data"
     
     return element_text
-def dynamic_extractor(resort_key, resort_dict, response, search_identifier_text, search_tag='div', sibling_tag='span', sibling_direction='next', deg_of_sep = 1, expected_pattern = None):
+def dynamic_extractor(resort_key, resort_dict, response, search_identifier_text, search_tag='div', sibling_tag='span', sibling_direction='next', deg_of_sep=1, expected_pattern=None, is_table=False, table_row=2, target_column_text='24h'):
     """
-    Dynamically extracts an element based on the text of a nearby identifier.
+    Dynamically extracts an element based on the text of a nearby identifier, or delegates to table_extractor if `is_table` is True.
     
     Args:
         resort_key (str): The key of the resort in the dictionary.
         resort_dict (dict): The dictionary to update with element information.
         response (<Response> from Requests): HTTP response returned by requests.get()
-        search_identifier_text (str): The text that identifies the element you're searching with (e.g. a table title).
+        search_identifier_text (str): The text that identifies the element you're searching with (e.g. a table title or element identifier).
         search_tag (str): The HTML tag of the element containing the identifier text.
-        sibling_tag (str): The HTML tag of the element that contains the desired info
-        sibling_direction (str): Either next or prev - the direction to search from the search_tag
-        deg_of_sep (int): number of tags away the desired info is contained in
+        sibling_tag (str): The HTML tag of the element that contains the desired info.
+        sibling_direction (str): Either 'next' or 'previous' - the direction to search from the search_tag.
+        deg_of_sep (int): Number of tags away the desired info is contained in.
+        expected_pattern (str, optional): A regex pattern to validate the extracted data.
+        is_table (bool): Whether the target element is inside a table. If True, table_extractor is called.
+        table_row (int): The row index in the table to extract from (default: 2).
+        target_column_text (str): The text in the first table row to find the target column (default: '24h').
+    
     Returns:
-        (str | None): The text content of the identified element or none if not found
+        str: The text content of the identified element.
     """
-        # handles the case where input HTTP response is empty 
+    
+    # Handle the case where the input HTTP response is empty or invalid
     if response is None or response.status_code != 200:
         handle_error(resort_key, "HTTP Error", "Failed to fetch the webpage", resort_dict)
         return "No Data"
     
-    #extract element from input HTTP reponse
+    # Parse the HTML response
     soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Find the identifier element (like "Recent Snowfall")
     identifier = soup.find(search_tag, text=search_identifier_text)
-
-    if identifier:
-        target = None #initialize target
-        current_element = identifier # intialize current_element for for loop
-
-        #Traverse through siblings depending on the direction and degree of separation
+    if not identifier:
+        handle_error(resort_key, "Identifier Not Found", f"Could not find the identifier '{search_identifier_text}'", resort_dict)
+        return "No Data"
+    
+    # If `is_table` is True, delegate to the table_extractor
+    if is_table:
+        return table_extractor(resort_key, resort_dict, identifier, table_row, target_column_text, expected_pattern)
+    
+    # Non-table logic: Find the sibling element in the specified direction and degree of separation
+    if sibling_direction == 'next':
+        target = identifier
         for _ in range(deg_of_sep):
-            if sibling_direction == 'next':
-                current_element = current_element.find_next(sibling_tag).text
-            elif sibling_direction == 'previous':
-                current_element = current_element.find_previous(sibling_tag).text
-                
+            target = target.find_next(sibling_tag)
+        target_text = target.text.strip() if target else None
+    elif sibling_direction == 'previous':
+        target = identifier
+        for _ in range(deg_of_sep):
+            target = target.find_previous(sibling_tag)
+        target_text = target.text.strip() if target else None
+    
+    # Handle the case where the element does not match its expected pattern
+    if expected_pattern and not validate_element(target_text, expected_pattern):
+        handle_error(resort_key, "Pattern Mismatch Error", f"Element '{target_text}' does not match expected pattern '{expected_pattern}'", resort_dict)
+        return "No Data"
+    
+    # Return the target content
+    return target_text if target_text else "No Data"
 
-            # If we reach the end of the siblings without finding the target
-            if not current_element:
-                handle_error(resort_key, "Traversal Error", "Failed to find the element after degree of separation", resort_dict)
-                return "No Data"
-            
-         # Extract the text from the located element
-        target = current_element.text if current_element else None
 
-        #handles the case where element does not match it's pattern
-        if expected_pattern and not validate_element(target, expected_pattern):
-            handle_error(resort_key, "Pattern Mismatch Error", f"Element '{target}' does not match expected pattern '{expected_pattern}'", resort_dict)
-            return "No Data"
-        if target:
-            return target
-        
-    # Return None if the identifier is not found
-    handle_error(resort_key, "Identifier Not Found", f"Could not find the element with text '{search_identifier_text}'", resort_dict)
-    return None
+def table_extractor(resort_key, resort_dict, identifier, table_row, target_column_text, expected_pattern=None):
+    """
+    Extracts data from a table based on the provided identifier element, column text, and row index.
+    
+    Args:
+        resort_key (str): The key of the resort in the dictionary.
+        resort_dict (dict): The dictionary to update with element information.
+        identifier (BeautifulSoup element): The identifier element that precedes the table.
+        table_row (int): The row index in the table to extract from (default: 2).
+        target_column_text (str): The text in the first table row to find the target column (default: '24h').
+        expected_pattern (str, optional): A regex pattern to validate the extracted data.
+    
+    Returns:
+        str: The extracted value from the table.
+    """
+    
+    # Locate the table just after the identified element
+    table = identifier.find_next('table')
+    if not table:
+        handle_error(resort_key, "Table Not Found", "Could not find the table associated with the identifier", resort_dict)
+        return "No Data"
+    
+    # Find all rows in the table
+    rows = table.find_all('tr')
+    if len(rows) < 2:
+        handle_error(resort_key, "Table Structure Error", "Table does not have enough rows", resort_dict)
+        return "No Data"
+    
+    # Find the first row (the header row) that contains day names or '24h'
+    header_row = rows[0]
+    headers = header_row.find_all('td')
+    
+    # Find the position of the column that matches `target_column_text`
+    target_col_index = None
+    for idx, header in enumerate(headers):
+        if target_column_text in header.text.strip():
+            target_col_index = idx
+            break
+    
+    if target_col_index is None:
+        handle_error(resort_key, "Column Not Found", f"Could not find the column with text '{target_column_text}'", resort_dict)
+        return "No Data"
+    
+    # Find the target value in the corresponding position in the specified row
+    target_row = rows[table_row - 1]  # Adjust for 1-based index
+    target_cells = target_row.find_all('td')
+    
+    if target_col_index >= len(target_cells):
+        handle_error(resort_key, "Column Index Error", f"Column index {target_col_index} is out of range in the target row", resort_dict)
+        return "No Data"
+    
+    # Extract the text from the target cell
+    target_value = target_cells[target_col_index].text.strip()
+    
+    # Validate the pattern if necessary
+    if expected_pattern and not validate_element(target_value, expected_pattern):
+        handle_error(resort_key, "Pattern Mismatch Error", f"Element '{target_value}' does not match expected pattern '{expected_pattern}'", resort_dict)
+        return "No Data"
+    
+    return target_value
+
 
 def fetch_resort_info(resort_key, resort_dict):
     """For a given resort name (from RESORT_DICT.keys), extract all info from the resort skireport page.
