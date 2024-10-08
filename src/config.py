@@ -478,20 +478,20 @@ CSS_SELECTORS = {
         'pattern': None,
         'transform': None,
         'selection_method': 'dynamic',
-        'identifier_text': 'base_snow_conditions',
+        'identifier_text': 'Base',
         'search_tag': 'div',
-        'sibling_tag': '',
+        'sibling_tag': 'div',
         'direction': 'next',
-        'deg_of_sep': 1
+        'deg_of_sep': 2
     },
     'summit_depth_inches': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(2) > article > div.styles_metricNumber__ZV6R3',
         'pattern': '^\\d+"$',
         'transform': None,
         'selection_method': 'dynamic',
-        'identifier_text': 'summit_depth_inches',
+        'identifier_text': 'Summit',
         'search_tag': 'div',
-        'sibling_tag': '',
+        'sibling_tag': 'div',
         'direction': 'next',
         'deg_of_sep': 1
     },
@@ -500,21 +500,21 @@ CSS_SELECTORS = {
         'pattern': None,
         'transform': None,
         'selection_method': 'dynamic',
-        'identifier_text': 'summit_snow_conditions',
+        'identifier_text': 'Summit',
         'search_tag': 'div',
-        'sibling_tag': '',
+        'sibling_tag': 'div',
         'direction': 'next',
-        'deg_of_sep': 1
+        'deg_of_sep': 2
     },
     'past_24h_snowfall_total': {
         'selector': '#__next > div.container-xl.content-container > div.styles_layout__2aTIJ.layout-container > div > div.skireport_reportContent__3-14w > div.styles_innerLayout__2ar6G > div:nth-child(3) > article > div.styles_metricNumber__ZV6R3',
         'pattern': '^\\d+"$',
         'transform': None,
-        'selection_method': 'dynamic',
-        'identifier_text': 'past_24h_snowfall_total',
-        'search_tag': 'div',
+        'selection_method': 'static',
+        'identifier_text': '',
+        'search_tag': '',
         'sibling_tag': '',
-        'direction': 'next',
+        'direction': '',
         'deg_of_sep': 1
     },
     'past_48h_snowfall_total': {
